@@ -13,7 +13,7 @@ public:
 	Pawn(int row, int col, bool isBlack) : Piece(row, col), _isBlack(isBlack) { this->_firstMove = true; };
 
 	bool getFirstMove() const;
-	bool getIsBlack() const;
+	bool getIsBlack() const override;
 
 	std::string getType() const override;
 	bool isLegalMove(int row, int col) override;

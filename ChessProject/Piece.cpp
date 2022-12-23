@@ -1,8 +1,14 @@
-
 #include <iostream>
 #include "Piece.h"
 
+int _numOfPieces = 0;
+int _numOfEaten = 0;
 
+Piece::~Piece()
+{
+	this->_numOfPieces--;
+	this->_numOfEaten++;
+}
 
 int Piece::getRow() const
 {
