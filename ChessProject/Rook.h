@@ -8,11 +8,11 @@ public:
 
 	~Rook();
 
-	bool getIsBlack() const override;
+	virtual bool getIsBlack() const override;
 
-	string getType() const override;
+	virtual string getType() const override;
 
-	bool isLegalMove(int row, int col) override;
+	virtual bool isLegalMove(int row, int col) override;
 
 private:
 	bool _isBlack;
