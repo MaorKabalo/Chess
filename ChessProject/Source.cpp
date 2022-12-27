@@ -13,7 +13,7 @@ using std::endl;
 using std::string;
 
 
-void main()
+/*void main()
 {
 	srand(time_t(NULL));
 
@@ -62,18 +62,18 @@ void main()
 		strcpy_s(msgToGraphics, "YOUR CODE"); // msgToGraphics should contain the result of the operation
 
 		/******* JUST FOR EREZ DEBUGGING ******/
-		int r = rand() % 10; // just for debugging......
+		/*int r = rand() % 10; // just for debugging......
 		msgToGraphics[0] = (char)(1 + '0');
 		msgToGraphics[1] = 0;
 		/******* JUST FOR EREZ DEBUGGING ******/
 
 
 		// return result to graphics		
-		p.sendMessageToGraphics(msgToGraphics);   
+		/*p.sendMessageToGraphics(msgToGraphics);
 
 		// get message from graphics
 		msgFromGraphics = p.getMessageFromGraphics();
 	}
 
 	p.close();
-}
+}*/

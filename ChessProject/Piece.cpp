@@ -1,8 +1,8 @@
 #include <iostream>
 #include "Piece.h"
 
-int _numOfPieces = 0;
-int _numOfEaten = 0;
+int Piece::_numOfPieces = 0;
+int Piece::_numOfEaten = 0;
 
 Piece::~Piece()
 {
@@ -32,3 +32,14 @@ bool Piece::setPlace(int row, int col)
 	this->_col = col;
 	return true;
 }
+
+string Piece::getType(Piece& p)
+{
+		return p.getType();
+}
+/*Piece Piece::operator=(Piece& p)
+{
+	this->_col = p._col;
+	this->_row = p._row;
+	return *this;
+}*/

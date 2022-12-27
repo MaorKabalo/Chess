@@ -33,3 +33,10 @@ bool Rook::isLegalMove(int row, int col)
 	}
 	return false;
 }
+
+/*Piece Rook::operator=(Piece& p)
+{
+	__super::operator=(p);
+	this->_isBlack = p.getIsBlack();
+	return *this;
+}*/

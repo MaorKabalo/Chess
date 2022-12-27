@@ -18,13 +18,16 @@ protected:
 	int _col;
 
 public:
+	Piece(){}
 	Piece(int row, int col) : _row(row), _col(col) { this->_numOfPieces++; }
 	~Piece();
 	int getRow() const;
 	int getCol() const;
-	virtual std::string getType() const = 0;
-	virtual bool isLegalMove(int row, int col) = 0;
+	virtual std::string getType() const { return "#"; }
+	static string getType(Piece& p);
+	virtual bool isLegalMove(int row, int col) { return false; }
 	bool setPlace(int row, int col);
-	virtual bool getIsBlack() const = 0;
+	virtual bool getIsBlack() const { return false; }
+	//virtual Piece operator=(Piece& p);
 
 };
