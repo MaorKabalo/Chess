@@ -25,7 +25,7 @@ public:
 	int getCol() const;
 	virtual std::string getType() const { return "#"; }
 	static string getType(Piece& p);
-	virtual bool isLegalMove(int row, int col) { return false; }
+	virtual int isLegalMove(int row, int col) { return 6; }
 	bool setPlace(int row, int col);
 	virtual bool getIsBlack() const { return false; }
 	//virtual Piece operator=(Piece& p);

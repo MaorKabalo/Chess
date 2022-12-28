@@ -12,7 +12,7 @@ public:
 
 	virtual string getType() const override;
 
-	virtual bool isLegalMove(int row, int col) override;
+	virtual int isLegalMove(int row, int col) override;
 
 	//virtual Piece operator=(Piece& p) override;
 

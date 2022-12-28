@@ -25,13 +25,13 @@ string Rook::getType() const
 	return "R";
 }
 
-bool Rook::isLegalMove(int row, int col)
+int Rook::isLegalMove(int row, int col)
 {
 	if (this->_row == row || this->_col == col)
 	{
-		return true;
+		return 0;
 	}
-	return false;
+	return 6;
 }
 
 /*Piece Rook::operator=(Piece& p)

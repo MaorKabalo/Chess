@@ -26,7 +26,7 @@ std::string Pawn::getType() const
 
 
 
-bool Pawn::isLegalMove(int row, int col) //need when eating
+int Pawn::isLegalMove(int row, int col) //need when eating
 {
 
 	int curRow = this->getRow();
@@ -37,15 +37,15 @@ bool Pawn::isLegalMove(int row, int col) //need when eating
 		if (row == curRow + 2 && curCol == col)
 		{
 			this->_firstMove = false;
-			return true;
+			return 0;
 		}
 	}
 
 	if (row == curRow + 1 && curCol == col)
 	{
 		this->_firstMove = false;
-		return true;
+		return 0;
 	}
 
-	return false;
+	return 6;
 }

@@ -11,7 +11,7 @@ public:
 
 	int move(const int nowRow, const int nowCol, const int thanRow, const int ThanCol);
 
-	int isLegalMove(int row, int col) const;
+	int isLegalMove(const int nowRow, const int nowCol, const int thanRow, const int ThanCol) const;
 
 	string toString() const;
 
@@ -30,6 +30,6 @@ private:
 
 	bool _checkBlack;
 
-	Piece** setBoard() const;
+	bool _blackTurn;
 
 };
