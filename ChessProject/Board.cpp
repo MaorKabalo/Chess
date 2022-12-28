@@ -3,6 +3,7 @@ Rook r(0, 0, true);
 Rook R(7, 0, false);
 King k(0, 4, true);
 King K(7, 4, false);
+Queen Q(4, 4, false);
 Board::Board():
 	_checkWhite(false), _checkBlack(false), _blackTurn(false)
 {
@@ -196,5 +197,15 @@ int Board::checkCheckBlack()
 		i++;
 	}
 	this->_blackTurn = true;
+	return 0;
+}
+
+int Board::checkIfMoveCheckWhite(const int nowRow, const int nowCol, const int thanRow, const int ThanCol) const
+{
+	return 0;
+}
+
+int Board::checkIfMoveCheckBlack(const int nowRow, const int nowCol, const int thanRow, const int ThanCol) const
+{
 	return 0;
 }

@@ -37,9 +37,3 @@ string Piece::getType(Piece& p)
 {
 		return p.getType();
 }
-/*Piece Piece::operator=(Piece& p)
-{
-	this->_col = p._col;
-	this->_row = p._row;
-	return *this;
-}*/
