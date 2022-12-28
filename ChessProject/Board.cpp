@@ -1,6 +1,8 @@
 #include "Board.h"
 Rook r(0, 0, true);
 Rook R(7, 0, false);
+King k(0, 4, true);
+King K(7, 4, false);
 Board::Board():
 	_checkWhite(false), _checkBlack(false), _blackTurn(false)
 {
@@ -13,6 +15,8 @@ Board::Board():
 	} 
 	this->_board[0][0] = &r;
 	this->_board[7][0] = &R;
+	this->_board[0][4] = &k;
+	this->_board[7][4] = &K;
 }
 
 Board::~Board()
@@ -47,7 +51,7 @@ int Board::isLegalMove(const int nowRow, const int nowCol, const int thanRow, co
 	{
 		return 5;
 	}
-	if (this->_board[nowRow][nowCol]->getIsBlack() != this->_blackTurn)
+	if (this->_board[nowRow][nowCol] == nullptr||this->_board[nowRow][nowCol]->getIsBlack() != this->_blackTurn)
 	{
 		return 2;
 	}
@@ -64,7 +68,7 @@ int Board::isLegalMove(const int nowRow, const int nowCol, const int thanRow, co
 		return 6;
 	}
 	char type = this->_board[nowRow][nowCol]->getType()[0];
-	switch (type)
+	switch (type)//blok
 	{
 	case 'r'||'R':
 		for (int i = nowRow; i < thanRow; i++)
@@ -110,8 +114,87 @@ int Board::move(const int nowRow, const int nowCol, const int thanRow, const int
 	{
 		return this->isLegalMove(nowRow, nowCol, thanRow, ThanCol);
 	}
+	this->_board[nowRow][nowCol]->setPlace(thanRow, ThanCol);
 	this->_board[thanRow][ThanCol] = this->_board[nowRow][nowCol];
 	this->_board[nowRow][nowCol] = nullptr;
 	this->_blackTurn = !this->_blackTurn;
+	return 0;
+}
+
+int Board::checkCheckWhite()
+{
+	this->_blackTurn = true;
+	int row = -1;
+	int col = -1;
+	int i = 0, j = 0;
+	while (row<0&&i<8)
+	{
+		while (col < 0 && j<8 )
+		{
+			if (this->_board[i][j] != NULL&&this->_board[i][j]->getType() == "K")
+			{
+				row = i;
+				col = j;
+			}
+			j++;
+		}
+		i++;
+	}
+	i = 0;
+	j = 0;
+	while (i < 8)
+	{
+		while (j < 8)
+		{
+			if (this->isLegalMove(i, j, row, col) >=1)
+			{
+				this->_checkWhite = true;
+				this->_blackTurn = false;
+				return 1;
+			}
+			j++;
+		}
+		i++;
+	}
+	this->_blackTurn = false;
+	return 0;
+}
+
+int Board::checkCheckBlack()
+{
+	this->_blackTurn = false;
+	int row = -1;
+	int col = -1;
+	int i = 0, j = 0;
+	while (row < 0 && i < 8)
+	{
+		while (col < 0 && j < 8)
+		{
+			if (this->_board[i][j] != NULL && this->_board[i][j]->getType() == "k")
+			{
+				row = i;
+				col = j;
+			}
+			j++;
+		}
+		i++;
+	}
+	i = 0;
+	j = 0;
+	while (i < 8)
+	{
+		while (j < 8)
+		{
+			if (this->isLegalMove(i, j, row, col) >= 1)
+			{
+				this->_checkBlack = true;
+				this->_blackTurn = true;
+				return 1;
+			}
+			j++;
+		}
+		i++;
+	}
+	this->_blackTurn = true;
 	return 0;
 }

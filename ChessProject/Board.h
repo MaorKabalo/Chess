@@ -1,6 +1,7 @@
 #pragma once
 #include "Piece.h"
 #include "Rook.h"
+#include "King.h"
 
 class Board
 {
@@ -15,9 +16,9 @@ public:
 
 	string toString() const;
 
-	int checkCheckWhite() const;
+	int checkCheckWhite();
 
-	int checkCheckBlack() const;
+	int checkCheckBlack();
 
 	int checkIfMoveCheckWhite(const int nowRow, const int nowCol, const int thanRow, const int ThanCol) const;
 
