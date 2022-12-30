@@ -4,6 +4,7 @@
 #include "King.h"
 #include "Queen.h"
 #include "Bishop.h"
+#include "Knight.h"
 
 class Board
 {

@@ -1,9 +1,5 @@
 #include "Board.h"
-Rook r(0, 0, true);
-Rook R(7, 0, false);
-King k(0, 4, true);
-King K(7, 4, false);
-Queen Q(4, 4, false);
+
 Board::Board():
 	_checkWhite(false), _checkBlack(false), _blackTurn(false)
 {
@@ -11,13 +7,25 @@ Board::Board():
 	{
 		for (int j = 0; j < 8; j++)
 		{
-			(this->_board[i][j]) = NULL;
+			(this->_board[i][j]) = nullptr;
 		}
 	} 
-	this->_board[0][0] = &r;
-	this->_board[7][0] = &R;
-	this->_board[0][4] = &k;
-	this->_board[7][4] = &K;
+	this->_board[0][0] = new Rook(0, 0, true);
+	this->_board[0][7] = new Rook(0, 7, true);
+	this->_board[7][0] = new Rook(7, 0, false);
+	this->_board[7][0] = new Rook(7, 7, false);
+	this->_board[0][1] = new Knight(0, 1, true);
+	this->_board[0][6] = new Knight(0, 6, true);
+	this->_board[7][1] = new Knight(7, 1, false);
+	this->_board[7][6] = new Knight(7, 6, false);
+	this->_board[0][2] = new Bishop(0, 2, true);
+	this->_board[0][5] = new Bishop(0, 5, true);
+	this->_board[7][2] = new Bishop(7, 2, false);
+	this->_board[7][5] = new Bishop(7, 5, false);
+	this->_board[0][3] = new Queen(0, 3, true);
+	this->_board[7][3] = new Queen(7, 3, false);
+	this->_board[0][4] = new King(0, 4, true);
+	this->_board[7][4] = new King(7, 4, false);
 }
 
 Board::~Board()
@@ -114,6 +122,11 @@ int Board::move(const int nowRow, const int nowCol, const int thanRow, const int
 	if (this->isLegalMove(nowRow, nowCol, thanRow, ThanCol) != 0)
 	{
 		return this->isLegalMove(nowRow, nowCol, thanRow, ThanCol);
+	}
+	if (this->_board[thanRow][ThanCol] != nullptr)
+	{
+		delete(this->_board[thanRow][ThanCol]);
+		this->_board[thanRow][ThanCol] = nullptr;
 	}
 	this->_board[nowRow][nowCol]->setPlace(thanRow, ThanCol);
 	this->_board[thanRow][ThanCol] = this->_board[nowRow][nowCol];
