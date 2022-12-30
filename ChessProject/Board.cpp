@@ -36,6 +36,20 @@ Board::Board():
 	}
 }
 
+Board::Board(const Board& b)
+{
+	this->_blackTurn = b._blackTurn;
+	this->_checkBlack = b._checkBlack;
+	this->_checkWhite = b._checkWhite;
+	for (int i = 0; i < 8; i++)
+	{
+		for (int j = 0; j < 8; j++)
+		{
+			this->_board[i][j] = b._board[i][j];
+		}
+	}
+}
+
 Board::~Board()
 {
 
@@ -87,13 +101,14 @@ int Board::isLegalMove(const int nowRow, const int nowCol, const int thanRow, co
 	char type = this->_board[nowRow][nowCol]->getType()[0];
 	switch (type)//blok
 	{
-	case 'r'||'R':
+	case 'R':
 		for (int i = nowRow; i < thanRow; i++)
 		{
 			for (int j = nowCol; j < ThanCol; j++)
 			{
 				if (this->_board[i][j] != nullptr)
 				{
+					cout << "dsg" << endl;
 					if (thanRow > i || ThanCol > j)
 					{
 						return 6;
@@ -223,10 +238,15 @@ int Board::checkCheckBlack()
 
 int Board::checkIfMoveCheckWhite(const int nowRow, const int nowCol, const int thanRow, const int ThanCol) const
 {
-	return 0;
+	Board b(*this);
+	b.move(nowRow, nowCol, thanRow, ThanCol);
+	cout << b.toString() << endl;
+	return b.checkCheckWhite();
 }
 
 int Board::checkIfMoveCheckBlack(const int nowRow, const int nowCol, const int thanRow, const int ThanCol) const
 {
-	return 0;
+	Board b(*this);
+	b.move(nowRow, nowCol, thanRow, ThanCol);
+	return b.checkCheckBlack();
 }

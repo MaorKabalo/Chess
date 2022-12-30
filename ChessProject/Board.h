@@ -12,6 +12,8 @@ class Board
 public:
 	Board();
 
+	Board(const Board& b);
+
 	~Board();
 
 	int move(const int nowRow, const int nowCol, const int thanRow, const int ThanCol);
