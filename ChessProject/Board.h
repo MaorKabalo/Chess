@@ -30,6 +30,8 @@ public:
 
 	int checkIfMoveCheckBlack(const int nowRow, const int nowCol, const int thanRow, const int ThanCol) const;
 
+
+
 private:
 	Piece* _board[8][8];
 

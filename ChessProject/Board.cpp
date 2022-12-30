@@ -36,7 +36,8 @@ Board::Board():
 	}
 }
 
-Board::Board(const Board& b)
+
+Board::Board(const Board& b) //Deep Copy
 {
 	this->_blackTurn = b._blackTurn;
 	this->_checkBlack = b._checkBlack;
@@ -48,43 +49,33 @@ Board::Board(const Board& b)
 			if (b._board[i][j] != nullptr)
 			{
 				char ch = b._board[i][j]->getType()[0];
+				bool isBlack = islower(ch);
 				switch (ch)
 				{
 				case 'r':
-					this->_board[i][j] = new Rook(i, j, true);
-					break;
 				case 'R':
-					this->_board[i][j] = new Rook(i, j, false);
+					this->_board[i][j] = new Rook(i, j, isBlack);
 					break;
 				case 'b':
-					this->_board[i][j] = new Bishop(i, j, true);
-					break;
 				case 'B':
-					this->_board[i][j] = new Bishop(i, j, false);
+					this->_board[i][j] = new Bishop(i, j, isBlack);
 					break;
 				case 'n':
-					this->_board[i][j] = new Knight(i, j, true);
-					break;
 				case 'N':
-					this->_board[i][j] = new Knight(i, j, false);
+					this->_board[i][j] = new Knight(i, j, isBlack);
 					break;
 				case 'k':
-					this->_board[i][j] = new King(i, j, true);
-					break;
 				case 'K':
-					this->_board[i][j] = new King(i, j, false);
+					this->_board[i][j] = new King(i, j, isBlack);
 					break;
 				case 'q':
-					this->_board[i][j] = new Queen(i, j, true);
-					break;
 				case 'Q':
-					this->_board[i][j] = new Queen(i, j, false);
-					break;
-				case 'p':
-					this->_board[i][j] = new Pawn(i, j, true);
+					this->_board[i][j] = new Queen(i, j, isBlack);
 					break;
 				case 'P':
-					this->_board[i][j] = new Pawn(i, j, false);
+				case 'p':
+					this->_board[i][j] = new Pawn(i, j, isBlack);
+					break;
 				default:
 					break;
 				}
@@ -135,7 +126,7 @@ int Board::isLegalMove(const int nowRow, const int nowCol, const int thanRow, co
 	{
 		return 5;
 	}
-	if (this->_board[nowRow][nowCol] == nullptr||this->_board[nowRow][nowCol]->getIsBlack() != this->_blackTurn)
+	if (this->_board[nowRow][nowCol] == nullptr || this->_board[nowRow][nowCol]->getIsBlack() != this->_blackTurn)
 	{
 		return 2;
 	}
@@ -152,7 +143,7 @@ int Board::isLegalMove(const int nowRow, const int nowCol, const int thanRow, co
 		return 6;
 	}
 	char type = this->_board[nowRow][nowCol]->getType()[0];
-	switch (type)//blok
+	switch (type)//If blocked when moving, need to complete for other stuff
 	{
 	case 'R':
 		for (int i = nowRow; i < thanRow; i++)
@@ -188,10 +179,11 @@ int Board::isLegalMove(const int nowRow, const int nowCol, const int thanRow, co
 	}
 	if (false)
 	{
-		//chack
+		//Check
 	}
 	return 0;
 }
+
 
 int Board::move(const int nowRow, const int nowCol, const int thanRow, const int ThanCol)
 {
@@ -217,11 +209,11 @@ int Board::checkCheckWhite()
 	int row = -1;
 	int col = -1;
 	int i = 0, j = 0;
-	while (row<0&&i<8)
+	while (row < 0 && i < 8)
 	{
-		while (col < 0 && j<8 )
+		while (col < 0 && j < 8)
 		{
-			if (this->_board[i][j] != nullptr&&this->_board[i][j]->getType() == "K")
+			if (this->_board[i][j] != nullptr && this->_board[i][j]->getType() == "K")
 			{
 				row = i;
 				col = j;
@@ -289,11 +281,12 @@ int Board::checkCheckBlack()
 	return 0;
 }
 
+
+
 int Board::checkIfMoveCheckWhite(const int nowRow, const int nowCol, const int thanRow, const int ThanCol) const
 {
 	Board b(*this);
 	b.move(nowRow, nowCol, thanRow, ThanCol);
-	cout << b.toString() << endl;
 	return b.checkCheckWhite();
 }
 
@@ -303,3 +296,4 @@ int Board::checkIfMoveCheckBlack(const int nowRow, const int nowCol, const int t
 	b.move(nowRow, nowCol, thanRow, ThanCol);
 	return b.checkCheckBlack();
 }
+

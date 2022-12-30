@@ -17,9 +17,9 @@ string Knight::getType() const
 {
     if (_isBlack)
     {
-        return "k";
+        return "n";
     }
-    return "K";
+    return "N";
 }
 
 int Knight::isLegalMove(int row, int col)
