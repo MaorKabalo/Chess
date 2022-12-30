@@ -45,14 +45,67 @@ Board::Board(const Board& b)
 	{
 		for (int j = 0; j < 8; j++)
 		{
-			this->_board[i][j] = b._board[i][j];
+			if (b._board[i][j] != nullptr)
+			{
+				char ch = b._board[i][j]->getType()[0];
+				switch (ch)
+				{
+				case 'r':
+					this->_board[i][j] = new Rook(i, j, true);
+					break;
+				case 'R':
+					this->_board[i][j] = new Rook(i, j, false);
+					break;
+				case 'b':
+					this->_board[i][j] = new Bishop(i, j, true);
+					break;
+				case 'B':
+					this->_board[i][j] = new Bishop(i, j, false);
+					break;
+				case 'n':
+					this->_board[i][j] = new Knight(i, j, true);
+					break;
+				case 'N':
+					this->_board[i][j] = new Knight(i, j, false);
+					break;
+				case 'k':
+					this->_board[i][j] = new King(i, j, true);
+					break;
+				case 'K':
+					this->_board[i][j] = new King(i, j, false);
+					break;
+				case 'q':
+					this->_board[i][j] = new Queen(i, j, true);
+					break;
+				case 'Q':
+					this->_board[i][j] = new Queen(i, j, false);
+					break;
+				case 'p':
+					this->_board[i][j] = new Pawn(i, j, true);
+					break;
+				case 'P':
+					this->_board[i][j] = new Pawn(i, j, false);
+				default:
+					break;
+				}
+			}
+			else
+			{
+				this->_board[i][j] = nullptr;
+			}
 		}
 	}
 }
 
 Board::~Board()
 {
-
+	for (int i = 0; i < 8; i++)
+	{
+		for (int j = 0; j < 8; j++)
+		{
+			delete(this->_board[i][j]);
+		}
+	}
 }
 
 string Board::toString() const
@@ -168,7 +221,7 @@ int Board::checkCheckWhite()
 	{
 		while (col < 0 && j<8 )
 		{
-			if (this->_board[i][j] != NULL&&this->_board[i][j]->getType() == "K")
+			if (this->_board[i][j] != nullptr&&this->_board[i][j]->getType() == "K")
 			{
 				row = i;
 				col = j;
@@ -183,7 +236,7 @@ int Board::checkCheckWhite()
 	{
 		while (j < 8)
 		{
-			if (this->isLegalMove(i, j, row, col) >=1)
+			if (this->isLegalMove(i, j, row, col) >= 1)
 			{
 				this->_checkWhite = true;
 				this->_blackTurn = false;
@@ -207,7 +260,7 @@ int Board::checkCheckBlack()
 	{
 		while (col < 0 && j < 8)
 		{
-			if (this->_board[i][j] != NULL && this->_board[i][j]->getType() == "k")
+			if (this->_board[i][j] != nullptr && this->_board[i][j]->getType() == "k")
 			{
 				row = i;
 				col = j;
