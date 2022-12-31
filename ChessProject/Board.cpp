@@ -10,9 +10,9 @@ Board::Board():
 			(this->_board[i][j]) = nullptr;
 		}
 	} 
-	this->_board[0][0] = new Rook(0, 0, true);
+	this->_board[0][0] = new Rook(0, 0, true); //00
 	this->_board[0][7] = new Rook(0, 7, true);
-	this->_board[7][0] = new Rook(7, 0, false);
+	this->_board[7][0] = new Rook(7, 0, false); //7, 0
 	this->_board[7][7] = new Rook(7, 7, false);
 	this->_board[0][1] = new Knight(0, 1, true);
 	this->_board[0][6] = new Knight(0, 6, true);
@@ -122,6 +122,7 @@ string Board::toString() const
 
 int Board::isLegalMove(const int nowRow, const int nowCol, const int thanRow, const int ThanCol) const
 {
+
 	if (thanRow < 0 || thanRow>7 || ThanCol < 0 || ThanCol>7 || nowRow < 0 || nowRow>7 || nowCol < 0 || nowCol>7)
 	{
 		return 5;
@@ -134,19 +135,21 @@ int Board::isLegalMove(const int nowRow, const int nowCol, const int thanRow, co
 	{
 		return 7;
 	}
-	if (this->_board[nowRow][nowCol]->getIsBlack() == this->_board[thanRow][ThanCol]->getIsBlack())
+	/*if (this->_board[nowRow][nowCol]->getIsBlack() && this->_board[thanRow][ThanCol]->getIsBlack()) //can be pointer to null
 	{
 		return 3;
-	}
+	}*/
 	if (this->_board[nowRow][nowCol]->isLegalMove(thanRow, ThanCol) == 6)
 	{
 		return 6;
 	}
+
 	char type = this->_board[nowRow][nowCol]->getType()[0];
 	switch (type)//If blocked when moving, need to complete for other stuff
 	{
 	case 'R':
-		for (int i = nowRow; i < thanRow; i++)
+	case 'r':
+		/*for (int i = nowRow; i < thanRow; i++)
 		{
 			for (int j = nowCol; j < ThanCol; j++)
 			{
@@ -172,7 +175,41 @@ int Board::isLegalMove(const int nowRow, const int nowCol, const int thanRow, co
 					}
 				}
 			}
+		}*/
+
+		if (nowCol == ThanCol)
+		{
+			for (int i = nowRow; i != thanRow; i += thanRow > nowRow ? 1 : -1)
+			{
+				if (this->_board[i][nowCol] != nullptr && i != nowRow)
+				{
+					return 6;
+				}
+			}
 		}
+		else if(nowRow == thanRow)
+		{
+			for (int i = nowCol; i != ThanCol;  i += ThanCol > nowCol ? 1 : -1)
+			{
+				if (this->_board[nowRow][i] != nullptr && i != nowCol)
+				{
+					return 6;
+				}
+			}
+		}
+
+	case 'B':
+	case 'b':
+
+
+
+
+		
+
+
+
+
+
 		break;
 	default:
 		break;
