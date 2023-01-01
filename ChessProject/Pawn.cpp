@@ -28,30 +28,49 @@ std::string Pawn::getType() const
 
 int Pawn::isLegalMove(int row, int col) //need when eating
 {
-
 	int curRow = this->getRow();
 	int curCol = this->getCol();
-
-	bool flag;
-
-	if (this->_firstMove)
+	if (this->_isBlack)
 	{
-		if (row == curRow + 2 && curCol == col)
+		if (this->_firstMove)
+		{
+			if (row == curRow + 2 && curCol == col)
+			{
+				this->_firstMove = false;
+				return 0;
+			}
+		}
+		if (row == curRow + 1 && curCol == col)
 		{
 			this->_firstMove = false;
-			flag = true;
-			//return 0;
+			return 0;
+		}
+		if (curRow + 1 == row && curCol + 1 == col)
+		{
+			this->_firstMove = false;
+			return 0;
 		}
 	}
-
-	if (row == curRow + 1 && curCol == col)
+	else
 	{
-		this->_firstMove = false;
-		flag = true;
-		//return 0;
+		if (this->_firstMove)
+		{
+			if (row == curRow - 2 && curCol == col)
+			{
+				this->_firstMove = false;
+				return 0;
+			}
+		}
+		if (row == curRow - 1 && curCol == col)
+		{
+			this->_firstMove = false;
+			return 0;
+		}
+		if (curRow - 1 == row && curCol - 1 == col)
+		{
+			this->_firstMove = false;
+			return 0;
+		}
 	}
-
-
-
 	return 6;
 }

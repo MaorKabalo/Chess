@@ -108,14 +108,14 @@ string Board::toString() const
 		{
 			if (this->_board[i][j] != nullptr)
 			{
-				str += this->_board[i][j]->getType() + " ";
+				str += this->_board[i][j]->getType() + "";
 			}
 			else
 			{
-				str += "# ";
+				str += "#";
 			}
 		}
-		str += "\n";
+		//str += "\n";
 	}
 	return str;
 }
@@ -135,10 +135,10 @@ int Board::isLegalMove(const int nowRow, const int nowCol, const int thanRow, co
 	{
 		return 7;
 	}
-	/*if (this->_board[nowRow][nowCol]->getIsBlack() && this->_board[thanRow][ThanCol]->getIsBlack()) //can be pointer to null
+	if (this->_board[thanRow][ThanCol] != nullptr && this->_board[nowRow][nowCol]->getIsBlack() && this->_board[thanRow][ThanCol]->getIsBlack()) //can be pointer to null
 	{
 		return 3;
-	}*/
+	}
 	if (this->_board[nowRow][nowCol]->isLegalMove(thanRow, ThanCol) == 6)
 	{
 		return 6;
@@ -149,34 +149,6 @@ int Board::isLegalMove(const int nowRow, const int nowCol, const int thanRow, co
 	{
 	case 'R':
 	case 'r':
-		/*for (int i = nowRow; i < thanRow; i++)
-		{
-			for (int j = nowCol; j < ThanCol; j++)
-			{
-				if (this->_board[i][j] != nullptr)
-				{
-					cout << "dsg" << endl;
-					if (thanRow > i || ThanCol > j)
-					{
-						return 6;
-					}
-				}
-			}
-		}
-		for (int i = nowRow; i < thanRow; i--)
-		{
-			for (int j = nowCol; j < ThanCol; j--)
-			{
-				if (this->_board[i][j] != nullptr)
-				{
-					if (thanRow < i || ThanCol < j)
-					{
-						return 6;
-					}
-				}
-			}
-		}*/
-
 		if (nowCol == ThanCol)
 		{
 			for (int i = nowRow; i != thanRow; i += thanRow > nowRow ? 1 : -1)
@@ -197,19 +169,109 @@ int Board::isLegalMove(const int nowRow, const int nowCol, const int thanRow, co
 				}
 			}
 		}
-
+		break;
 	case 'B':
 	case 'b':
-
-
-
-
-		
-
-
-
-
-
+		for (int i = nowRow; i != thanRow; i += thanRow > nowRow ? 1 : -1)
+		{
+			for (int j = nowCol; j != ThanCol; j += ThanCol > nowCol ? 1 : -1)
+			{
+				if (this->_board[i][j] != nullptr && i != nowRow && j != nowCol)
+				{
+					return 6;
+				}
+			}
+		}
+		break;
+	case 'Q':
+	case 'q':
+		if (nowCol == ThanCol)
+		{
+			for (int i = nowRow; i != thanRow; i += thanRow > nowRow ? 1 : -1)
+			{
+				if (this->_board[i][nowCol] != nullptr && i != nowRow)
+				{
+					return 6;
+				}
+			}
+		}
+		else if (nowRow == thanRow)
+		{
+			for (int i = nowCol; i != ThanCol; i += ThanCol > nowCol ? 1 : -1)
+			{
+				if (this->_board[nowRow][i] != nullptr && i != nowCol)
+				{
+					return 6;
+				}
+			}
+		}
+		else
+		{
+			for (int i = nowRow; i != thanRow; i += thanRow > nowRow ? 1 : -1)
+			{
+				for (int j = nowCol; j != ThanCol; j += ThanCol > nowCol ? 1 : -1)
+				{
+					if (this->_board[i][j] != nullptr && i != nowRow && j != nowCol)
+					{
+						return 6;
+					}
+				}
+			}
+		}
+		break;
+	case 'N':
+	case 'n':
+		if (this->_board[thanRow][ThanCol] != nullptr && this->_board[thanRow][ThanCol]->getIsBlack() == this->_blackTurn)
+		{
+			return 6;
+		}
+		break;
+	case 'P':
+		if (nowCol - 1 == ThanCol)
+		{
+			if (this->_board[thanRow][ThanCol] == nullptr)
+			{
+				return 6;
+			}
+			if (this->_board[thanRow][ThanCol]->getIsBlack() == this->_blackTurn)
+			{
+				return 6;
+			}
+		}
+		else
+		{
+			if (this->_board[thanRow][ThanCol] != nullptr)
+			{
+				return 6;
+			}
+		}
+		break;
+	case 'p':
+		if (nowCol + 1 == ThanCol)
+		{
+			if (this->_board[thanRow][ThanCol] == nullptr)
+			{
+				return 6;
+			}
+			if (this->_board[thanRow][ThanCol]->getIsBlack() == this->_blackTurn)
+			{
+				return 6;
+			}
+		}
+		else
+		{
+			if (this->_board[thanRow][ThanCol] != nullptr)
+			{
+				return 6;
+			}
+		}
+		break;
+	case 'K':
+	case 'k':
+		if (this->_board[thanRow][ThanCol] != nullptr && this->_board[thanRow][ThanCol]->getIsBlack() == this->_blackTurn)
+		{
+			return 6;
+		}
 		break;
 	default:
 		break;
@@ -334,3 +396,14 @@ int Board::checkIfMoveCheckBlack(const int nowRow, const int nowCol, const int t
 	return b.checkCheckBlack();
 }
 
+string Board::getTurn() const
+{
+	if (this->_blackTurn)
+	{
+		return "1";
+	}
+	else
+	{
+		return "0";
+	}
+}
