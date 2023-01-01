@@ -1,6 +1,6 @@
-#include "Menager.h"
+#include "Manager.h"
 
-Menager::Menager(Board& b):
+Manager::Manager(Board& b):
 	_b(b)
 {
 	srand(time_t(NULL));
@@ -27,12 +27,12 @@ Menager::Menager(Board& b):
 	}
 }
 
-Menager::~Menager()
+Manager::~Manager()
 {
 	delete(this->_p);
 }
 
-bool Menager::sendToGraphics()
+bool Manager::sendToGraphics()
 {
 	string turnMsg = this->_b.getTurn();
 	strcpy_s(this->_msgToGraphics, (this->_b.toString() + turnMsg).c_str());
@@ -40,7 +40,7 @@ bool Menager::sendToGraphics()
 	return true;
 }
 
-string Menager::getMessageFromGraphics()
+string Manager::getMessageFromGraphics()
 {
 	return this->_p->getMessageFromGraphics();
 }

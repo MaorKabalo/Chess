@@ -1,10 +1,10 @@
 #include "Board.h"
-#include "Menager.h"
+#include "Manager.h"
 
 int main()
 {
 	Board b = Board();
-	Menager m = Menager(b);
+	Manager m = Manager(b);
 	m.sendToGraphics();
 	//Board b1(b);
 	

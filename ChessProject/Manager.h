@@ -4,12 +4,12 @@
 #include <iostream>
 #include <thread>
 
-class Menager
+class Manager
 {
 public:
-	Menager(Board& b);
+	Manager(Board& b);
 
-	~Menager();
+	~Manager();
 
 	bool sendToGraphics();
 
