@@ -27,9 +27,9 @@ string King::getType() const
 
 int King::isLegalMove(int row, int col)
 {
-	if (abs(this->_col - col) != 1 || abs(this->_row - row) != 1)
+	if (abs(this->_col - col) == 1 || abs(this->_row - row) == 1)
 	{
-		return 6;
+		return 0;
 	}
-	return 0;
+	return 6;
 }
