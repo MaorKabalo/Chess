@@ -122,7 +122,6 @@ string Board::toString() const
 
 int Board::isLegalMove(const int nowRow, const int nowCol, const int thanRow, const int ThanCol) const
 {
-
 	if (thanRow < 0 || thanRow>7 || ThanCol < 0 || ThanCol>7 || nowRow < 0 || nowRow>7 || nowCol < 0 || nowCol>7)
 	{
 		return 5;
@@ -308,9 +307,10 @@ int Board::checkCheckWhite()
 	int row = -1;
 	int col = -1;
 	int i = 0, j = 0;
-	while (row < 0 && i < 8)
+	while (i < 8)
 	{
-		while (col < 0 && j < 8)
+		j = 0;
+		while (j < 8)
 		{
 			if (this->_board[i][j] != nullptr && this->_board[i][j]->getType() == "K")
 			{
@@ -327,7 +327,7 @@ int Board::checkCheckWhite()
 	{
 		while (j < 8)
 		{
-			if (this->isLegalMove(i, j, row, col) >= 1)
+			if (this->isLegalMove(i, j, row, col) <= 1)
 			{
 				this->_checkWhite = true;
 				this->_blackTurn = false;
@@ -349,6 +349,7 @@ int Board::checkCheckBlack()
 	int i = 0, j = 0;
 	while (row < 0 && i < 8)
 	{
+		j = 0;
 		while (col < 0 && j < 8)
 		{
 			if (this->_board[i][j] != nullptr && this->_board[i][j]->getType() == "k")
@@ -366,7 +367,7 @@ int Board::checkCheckBlack()
 	{
 		while (j < 8)
 		{
-			if (this->isLegalMove(i, j, row, col) >= 1)
+			if (this->isLegalMove(i, j, row, col) <= 1)
 			{
 				this->_checkBlack = true;
 				this->_blackTurn = true;

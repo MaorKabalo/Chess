@@ -15,6 +15,12 @@ public:
 
 	string getMessageFromGraphics();
 
+	enum rowCol{row = 0, col = 1};
+
+	void getIndexFromString(string str);
+
+	bool doMove();
+
 private:
 	Board& _b;
 
@@ -23,4 +29,8 @@ private:
 	char _msgToGraphics[1024];
 
 	string _MessageFromGraphics;
+
+	int _indexFrom[2];
+
+	int _indexTo[2];
 };

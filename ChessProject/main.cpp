@@ -6,6 +6,11 @@ int main()
 	Board b = Board();
 	Manager m = Manager(b);
 	m.sendToGraphics();
+	while (true)
+	{
+		m.doMove();
+	}
+	//m.sendToGraphics();
 	//Board b1(b);
 	
 	//cout << b.checkIfMoveCheckWhite(7, 0, 0, 0) << endl;
