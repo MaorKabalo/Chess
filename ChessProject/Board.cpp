@@ -128,7 +128,6 @@ int Board::isLegalMove(const int nowRow, const int nowCol, const int thanRow, co
 	}
 	if (this->_board[nowRow][nowCol] == nullptr || this->_board[nowRow][nowCol]->getIsBlack() != this->_blackTurn)
 	{
-		cout << "fdj " << (this->_board[nowRow][nowCol] == NULL) << endl;
 		return 2;
 	}
 	if (nowRow == thanRow && nowCol == ThanCol)
@@ -366,8 +365,8 @@ int Board::checkCheckBlack()
 	{
 		for (int j = 0; j < 8; j++)
 		{
-			cout << i << ", " << j << endl;
-			cout << "hosdy " << this->isLegalMove(i, j, row, col) << endl;
+			//cout << i << ", " << j << endl;
+			//cout << "hosdy " << this->isLegalMove(i, j, row, col) << endl;
 			if (this->isLegalMove(i, j, row, col) == 0)
 			{
 				this->_checkBlack = true;
