@@ -128,6 +128,7 @@ int Board::isLegalMove(const int nowRow, const int nowCol, const int thanRow, co
 	}
 	if (this->_board[nowRow][nowCol] == nullptr || this->_board[nowRow][nowCol]->getIsBlack() != this->_blackTurn)
 	{
+		cout << "fdj " << (this->_board[nowRow][nowCol] == NULL) << endl;
 		return 2;
 	}
 	if (nowRow == thanRow && nowCol == ThanCol)
@@ -226,7 +227,7 @@ int Board::isLegalMove(const int nowRow, const int nowCol, const int thanRow, co
 		}
 		break;
 	case 'P':
-		if (nowCol - 1 == ThanCol)
+		if (nowCol - 1 == ThanCol || nowCol + 1 == ThanCol)
 		{
 			if (this->_board[thanRow][ThanCol] == nullptr)
 			{
@@ -246,7 +247,7 @@ int Board::isLegalMove(const int nowRow, const int nowCol, const int thanRow, co
 		}
 		break;
 	case 'p':
-		if (nowCol + 1 == ThanCol)
+		if (nowCol - 1 == ThanCol || nowCol + 1 == ThanCol)
 		{
 			if (this->_board[thanRow][ThanCol] == nullptr)
 			{
@@ -275,10 +276,6 @@ int Board::isLegalMove(const int nowRow, const int nowCol, const int thanRow, co
 	default:
 		break;
 	}
-	if (false)
-	{
-		//Check
-	}
 	return 0;
 }
 
@@ -298,11 +295,14 @@ int Board::move(const int nowRow, const int nowCol, const int thanRow, const int
 	this->_board[thanRow][ThanCol] = this->_board[nowRow][nowCol];
 	this->_board[nowRow][nowCol] = nullptr;
 	this->_blackTurn = !this->_blackTurn;
+	this->checkCheckBlack();
+	this->checkCheckWhite();
 	return 0;
 }
 
 int Board::checkCheckWhite()
 {
+	bool turn = this->_blackTurn;
 	this->_blackTurn = true;
 	int row = -1;
 	int col = -1;
@@ -327,7 +327,7 @@ int Board::checkCheckWhite()
 	{
 		while (j < 8)
 		{
-			if (this->isLegalMove(i, j, row, col) <= 1)
+			if (this->isLegalMove(i, j, row, col) == 0)
 			{
 				this->_checkWhite = true;
 				this->_blackTurn = false;
@@ -337,12 +337,13 @@ int Board::checkCheckWhite()
 		}
 		i++;
 	}
-	this->_blackTurn = false;
+	this->_blackTurn = turn;
 	return 0;
 }
 
 int Board::checkCheckBlack()
 {
+	bool turn = this->_blackTurn;
 	this->_blackTurn = false;
 	int row = -1;
 	int col = -1;
@@ -361,23 +362,21 @@ int Board::checkCheckBlack()
 		}
 		i++;
 	}
-	i = 0;
-	j = 0;
-	while (i < 8)
+	for (int i = 0; i < 8; i++)
 	{
-		while (j < 8)
+		for (int j = 0; j < 8; j++)
 		{
-			if (this->isLegalMove(i, j, row, col) <= 1)
+			cout << i << ", " << j << endl;
+			cout << "hosdy " << this->isLegalMove(i, j, row, col) << endl;
+			if (this->isLegalMove(i, j, row, col) == 0)
 			{
 				this->_checkBlack = true;
 				this->_blackTurn = true;
 				return 1;
 			}
-			j++;
 		}
-		i++;
 	}
-	this->_blackTurn = true;
+	this->_blackTurn = turn;
 	return 0;
 }
 

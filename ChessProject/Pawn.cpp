@@ -50,6 +50,11 @@ int Pawn::isLegalMove(int row, int col) //need when eating
 			this->_firstMove = false;
 			return 0;
 		}
+		if (curRow + 1 == row && curCol - 1 == col)
+		{
+			this->_firstMove = false;
+			return 0;
+		}
 	}
 	else
 	{
@@ -67,6 +72,11 @@ int Pawn::isLegalMove(int row, int col) //need when eating
 			return 0;
 		}
 		if (curRow - 1 == row && curCol - 1 == col)
+		{
+			this->_firstMove = false;
+			return 0;
+		}
+		if (curRow - 1 == row && curCol + 1 == col)
 		{
 			this->_firstMove = false;
 			return 0;

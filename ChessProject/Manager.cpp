@@ -118,7 +118,6 @@ bool Manager::doMove()
 {
 	this->getIndexFromString(this->getMessageFromGraphics());
 	int isValid = this->_b.move(this->_indexFrom[row], this->_indexFrom[col], this->_indexTo[row], this->_indexTo[col]);
-	cout << isValid << endl;
 	strcpy_s(this->_msgToGraphics, to_string(isValid).c_str());
 	this->_p->sendMessageToGraphics(this->_msgToGraphics);
 	return true;
