@@ -226,6 +226,7 @@ int Board::isLegalMove(const int nowRow, const int nowCol, const int thanRow, co
 		}
 		break;
 	case 'P':
+	case 'p':
 		if (nowCol - 1 == ThanCol || nowCol + 1 == ThanCol)
 		{
 			if (this->_board[thanRow][ThanCol] == nullptr)
@@ -245,7 +246,7 @@ int Board::isLegalMove(const int nowRow, const int nowCol, const int thanRow, co
 			}
 		}
 		break;
-	case 'p':
+	/*case 'p':
 		if (nowCol + 1 == ThanCol || nowCol - 1 == ThanCol)
 		{
 			if (this->_board[thanRow][ThanCol] == nullptr)
@@ -264,10 +265,10 @@ int Board::isLegalMove(const int nowRow, const int nowCol, const int thanRow, co
 				return 6;
 			}
 		}
-		break;
+		break;*/
 	case 'K':
 	case 'k':
-		if (this->_board[thanRow][ThanCol] != nullptr && this->_board[thanRow][ThanCol]->getIsBlack() == this->_blackTurn)
+		if (this->_board[thanRow][ThanCol] != nullptr && this->_board[thanRow][ThanCol]->getIsBlack() == this->_blackTurn && (abs(nowCol - ThanCol) != 1 || abs(nowRow - thanRow) != 1))
 		{
 			return 6;
 		}
