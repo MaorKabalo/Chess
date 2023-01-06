@@ -10,9 +10,9 @@ Board::Board():
 			(this->_board[i][j]) = nullptr;
 		}
 	} 
-	this->_board[0][0] = new Rook(0, 0, true); //00
+	this->_board[0][0] = new Rook(0, 0, true); 
 	this->_board[0][7] = new Rook(0, 7, true);
-	this->_board[7][0] = new Rook(7, 0, false); //7, 0
+	this->_board[7][0] = new Rook(7, 0, false); 
 	this->_board[7][7] = new Rook(7, 7, false);
 	this->_board[0][1] = new Knight(0, 1, true);
 	this->_board[0][6] = new Knight(0, 6, true);
@@ -175,7 +175,7 @@ int Board::isLegalMove(const int nowRow, const int nowCol, const int thanRow, co
 		{
 			for (int j = nowCol; j != ThanCol; j += ThanCol > nowCol ? 1 : -1)
 			{
-				if (this->_board[i][j] != nullptr && i != nowRow && j != nowCol)
+				if (this->_board[i][j] != nullptr && i != nowRow && j != nowCol && abs(nowRow - thanRow) != abs(nowCol - ThanCol))
 				{
 					return 6;
 				}
@@ -210,7 +210,7 @@ int Board::isLegalMove(const int nowRow, const int nowCol, const int thanRow, co
 			{
 				for (int j = nowCol; j != ThanCol; j += ThanCol > nowCol ? 1 : -1)
 				{
-					if (this->_board[i][j] != nullptr && i != nowRow && j != nowCol)
+					if (this->_board[i][j] != nullptr && i != nowRow && j != nowCol && abs(nowRow - thanRow) != abs(nowCol - ThanCol))
 					{
 						return 6;
 					}
@@ -226,7 +226,7 @@ int Board::isLegalMove(const int nowRow, const int nowCol, const int thanRow, co
 		}
 		break;
 	case 'P':
-		if (nowCol - 1 == ThanCol || nowCol + 1 == ThanCol)
+		if (nowCol - 1 == ThanCol)
 		{
 			if (this->_board[thanRow][ThanCol] == nullptr)
 			{
@@ -246,7 +246,7 @@ int Board::isLegalMove(const int nowRow, const int nowCol, const int thanRow, co
 		}
 		break;
 	case 'p':
-		if (nowCol - 1 == ThanCol || nowCol + 1 == ThanCol)
+		if (nowCol + 1 == ThanCol)
 		{
 			if (this->_board[thanRow][ThanCol] == nullptr)
 			{
@@ -264,10 +264,10 @@ int Board::isLegalMove(const int nowRow, const int nowCol, const int thanRow, co
 				return 6;
 			}
 		}
-		break;
+		break;*/
 	case 'K':
 	case 'k':
-		if (this->_board[thanRow][ThanCol] != nullptr && this->_board[thanRow][ThanCol]->getIsBlack() == this->_blackTurn)
+		if (this->_board[thanRow][ThanCol] != nullptr && this->_board[thanRow][ThanCol]->getIsBlack() == this->_blackTurn && (abs(nowCol - ThanCol) != 1 || abs(nowRow - thanRow) != 1))
 		{
 			return 6;
 		}
